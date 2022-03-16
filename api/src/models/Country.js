@@ -8,25 +8,32 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    flag: {
+      type: DataTypes.BLOB,
+      allowNull: false,
+    },
     continent: {
       type: DataTypes.STRING,
       allowNull: false,
     },
     capital: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
     },
     subregion: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
     },
     area: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
     },
     population: {
       type: DataTypes.BIGINT,
       allowNull: false,
     }
+  },
+  {
+    timestamps: false,
   });
 };
