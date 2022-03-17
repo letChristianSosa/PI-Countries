@@ -7,6 +7,9 @@ module.exports = (sequelize) => {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        isAlpha: true
+      }
     },
     flag: {
       type: DataTypes.BLOB,
@@ -15,22 +18,38 @@ module.exports = (sequelize) => {
     continent: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        isAlpha: true
+      }
     },
     capital: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        isAlpha: true
+      }
     },
     subregion: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
+      validate: {
+        isAlpha: true
+      }
     },
     area: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
+      validate: {
+        isAlpha: true
+      }
     },
     population: {
       type: DataTypes.BIGINT,
-      allowNull: false,
+      allowNull: true,
+      validate: {
+        isNumeric: true,
+        min: 0
+      }
     }
   },
   {
