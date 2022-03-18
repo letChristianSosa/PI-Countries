@@ -21,5 +21,21 @@ router.post('/', async (req,res) => {
 
 });
 
+router.get('/:idActivity', async (req,res) => {
+     const {idActivity} = req.params;
+     if(idActivity){
+          try{
+               const activity = await Activity.findAll({
+                    where: {
+                         id: idActivity,
+                    }
+               });
+               res.json(activity.length !== 0 ? activity : "No existe actividad con ese id");
+          }catch(e){
+               res.send(e);
+          }
+     }
+});
+
 
 module.exports = router; 
