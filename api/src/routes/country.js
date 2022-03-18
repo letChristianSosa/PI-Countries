@@ -3,64 +3,100 @@ const {Country} = require('../db.js');
 
 const router = Router();
 
+//Retorna el pais con el nombre coincidente pasado por query o retorna todos los paises. GET http://localhost:3001/countries/    O    // http://localhost:3001/countries/?name=mexico
 
 router.get('/', async (req,res) => {
-     const {name} = req.query;
+     const {name, order} = req.query;
      if(name){
           // select * from "Countries" where name = $name;
           try{
-               const country = await Country.findAll({
+               let country = await Country.findAll({
                     where: {
                          name: name,
                     }
                });
-               console.log(country);
-               res.json(country.length === 1 ? country : "No existe el pais" )
+               res.json(country.length === 1 ? country : `No existe el pais ${name}` )
           }catch(e){
                res.send(e);
-          }          
+          }           
      }else{
           try{
                // select * from "Countries";
-               const countries = await Country.findAll();
-               res.json(countries.length > 0 ? countries : "No hay paises");
+               let countries;
+               if(!order){
+                    countries = await Country.findAll({
+                         order: [
+                              'name', 'DESC'
+                         ]
+                    })
+                    res.json(countries.length > 0 ? countries : "No hay paises");
+               }else{
+                    switch(order){
+                         case AZ: 
+                              countries = await Country.findAll({
+                                   order: [
+                                        'name', 'ASC'
+                                   ]
+                              })                              
+                              break;
+                         case ZA:
+                              countries = await Country.findAll({
+                                   order: [
+                                        'name', 'DESC'
+                                   ]
+                              })
+                              break;
+                         case PHtoL: //(Population Higher to Lower) Poblacion Mas alta a Mas baja
+                              countries = await Country.findAll({
+                                   order: [
+                                        'population', 'DESC'
+                                   ]
+                              })
+                              break;
+                         case PLtoH: //(Population Higher to Lower) Poblacion Mas alta a Mas baja
+                              countries = await Country.findAll({
+                                   order: [
+                                        'population', 'ASC'
+                                   ]
+                              })
+                              break;
+
+                    }
+                    res.json(countries.length > 0 ? countries : "No hay paises");
+               }
           }catch(e){
                res.send(e);
           }
      }
 });
 
-router.get('/:idCountry', async (req,res) => {
-     const {idCountry} = req.params;
-     if(idCountry){
-          try{
-               const country = await Country.findAll({
-                    where: {
-                         id: idCountry,
-                    }
-               });
-               res.json(country.length !== 0 ? country : "No existe pais con ese id");
-          }catch(e){
-               res.send(e);
-          }
+//Retorna el pais con el id coincidente pasado por params. GET http://localhost:3001/countries/1
+
+router.get('/:id', async (req,res) => {
+     try{
+          let {id} = req.params;
+          let country = await Country.findByPk(id);
+          res.json(country ? country : "No existe pais con ese id");
+     }catch(e){
+          res.send(e);
      }
 });
 
-router.get('/name/:nameCountry', async (req,res) => {
-     const {nameCountry} = req.params;
-     if(nameCountry){
-          try{
-               const country = await Country.findAll({
-                    where: {
-                         name: nameCountry,
-                    }
-               });
-               res.json(country.length !== 0 ? country : "No existe pais con ese nombre");
-          }catch(e){
-               res.send(e);
-          }
-     }
-});
+// //Retorna el pais con el nombre coincidente pasado por params. GET http://localhost:3001/countries/name/mexico
+
+// router.get('/name/:nameCountry', async (req,res) => {
+//      try{
+//           const {nameCountry} = req.params;
+//           let country = await Country.findAll({
+//                where: {
+//                     name: nameCountry,
+//                }
+//           });
+//           res.json(country.length !== 0 ? country : "No existe pais con ese nombre");
+//      }catch(e){
+//           res.send(e);
+//      }
+// });
 
 // router.get('/?name', (req,res) => {
 
