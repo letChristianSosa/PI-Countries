@@ -18,7 +18,6 @@ router.post('/', async (req,res) => {
      }catch(e){
           res.send(e);
      }
-
 });
 
 router.get('/:idActivity', async (req,res) => {

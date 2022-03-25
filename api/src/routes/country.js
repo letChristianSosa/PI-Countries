@@ -7,6 +7,8 @@ const router = Router();
 
 router.get('/', async (req,res) => {
      const {name, order} = req.query;
+     
+     // Si se le pasa el name por query ejecuta lo siguiente: 
      if(name){
           // select * from "Countries" where name = $name;
           try{
@@ -26,41 +28,47 @@ router.get('/', async (req,res) => {
                if(!order){
                     countries = await Country.findAll({
                          order: [
-                              'name', 'DESC'
+                              ['name', 'ASC']
                          ]
                     })
                     res.json(countries.length > 0 ? countries : "No hay paises");
                }else{
                     switch(order){
-                         case AZ: 
+                         case 'AZ': 
                               countries = await Country.findAll({
                                    order: [
-                                        'name', 'ASC'
+                                        ['name', 'ASC']
                                    ]
                               })                              
                               break;
-                         case ZA:
+                         case 'ZA':
                               countries = await Country.findAll({
                                    order: [
-                                        'name', 'DESC'
+                                        ['name', 'DESC']
                                    ]
                               })
                               break;
-                         case PHtoL: //(Population Higher to Lower) Poblacion Mas alta a Mas baja
+                         case 'PHtoL': //(Population Higher to Lower) Poblacion Mas alta a Mas baja
                               countries = await Country.findAll({
                                    order: [
-                                        'population', 'DESC'
+                                        ['population', 'DESC']
                                    ]
                               })
                               break;
-                         case PLtoH: //(Population Higher to Lower) Poblacion Mas alta a Mas baja
+                         case 'PLtoH': //(Population Higher to Lower) Poblacion Mas alta a Mas baja
                               countries = await Country.findAll({
                                    order: [
-                                        'population', 'ASC'
+                                        ['population', 'ASC']
                                    ]
                               })
                               break;
-
+                         default:
+                              countries = await Country.findAll({
+                                   order: [
+                                        ['name', 'ASC']
+                                   ]
+                              })
+                              break;
                     }
                     res.json(countries.length > 0 ? countries : "No hay paises");
                }
