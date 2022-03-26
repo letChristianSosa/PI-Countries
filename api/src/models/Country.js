@@ -6,8 +6,7 @@ module.exports = (sequelize) => {
   sequelize.define('Country', {
     name: {
       type: DataTypes.STRING,
-      allowNull: false,
-      
+      allowNull: false,      
     },
     flag: {
       type: DataTypes.STRING,
@@ -15,13 +14,11 @@ module.exports = (sequelize) => {
     },
     continent: {
       type: DataTypes.STRING,
-      allowNull: false,
-      
+      allowNull: true,      
     },
     capital: {
       type: DataTypes.STRING,
-      allowNull: false,
-      
+      allowNull: true,      
     },
     subregion: {
       type: DataTypes.STRING,

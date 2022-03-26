@@ -19,7 +19,7 @@
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
-const {Country} = require('./src/db.js');
+const { Country } = require('./src/db.js');
 const axios = require('axios');
 
 // Inyectar los datos de la API en mi BD
@@ -50,8 +50,8 @@ const createDB = async () => {
   });
 };
 
+// Se ejecuta createDB() que extrae los datos de la API y los agrega a mi BD
 createDB();
-console.log('DB creada');
 
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {

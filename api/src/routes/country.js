@@ -1,20 +1,22 @@
 const {Router} = require('express');
 const {Country} = require('../db.js');
+const { Op } = require('sequelize')
 
 const router = Router();
 
 //Retorna el pais con el nombre coincidente pasado por query o retorna todos los paises. GET http://localhost:3001/countries/    O    // http://localhost:3001/countries/?name=mexico
 
 router.get('/', async (req,res) => {
-     const {name, order} = req.query;
-     
+     const {name, order} = req.query;     
      // Si se le pasa el name por query ejecuta lo siguiente: 
      if(name){
           // select * from "Countries" where name = $name;
           try{
                let country = await Country.findAll({
                     where: {
-                         name: name,
+                         name: {
+                              [Op.iLike]: name
+                         }
                     }
                });
                res.json(country.length === 1 ? country : `No existe el pais ${name}` )

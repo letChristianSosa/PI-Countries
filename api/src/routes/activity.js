@@ -1,5 +1,5 @@
 const {Router} = require('express');
-const {Activity} = require('../db.js');
+const {Activity, Country} = require('../db.js');
 
 const router = Router();
 
@@ -8,13 +8,13 @@ const router = Router();
 // }
 
 router.post('/', async (req,res) => {
-     const {name, difficulty, duration, season} = req.body;
+     const {idCountries, name, difficulty, duration, season} = req.body;
      try{
-          console.log(season);
-          const newPlayer = await Activity.create({
+          const newActivity = await Activity.create({
                name, difficulty, duration, season
           });
-          res.json(newPlayer);
+          newActivity.addCountries(idCountries);
+          res.json(newActivity);
      }catch(e){
           res.send(e);
      }
