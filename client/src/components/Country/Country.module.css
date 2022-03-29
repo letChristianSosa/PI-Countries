@@ -1,6 +1,6 @@
 .countryCard{
      height: auto;
-     background-color: #F2E3D5;
+     background-color: rgb(223, 223, 223);
      border-radius: 10px;
      padding: 30px 10px;
 
@@ -32,16 +32,22 @@
 }
 
 .button{
+     display: inline-block;
+     margin-top: 10px;
+     padding: 10px 0;
      background-color: #026773;
-     width: 180px;
-     height: 40px;
-     font-size: 16px;
+     text-align: center;
+     color: white;
+     width: 240px;
+     height: auto;
+     font-size: 20px;
      font-weight: 700;
-     border-radius: 10px;
+     border-radius: 8px;
      border: none;
      
 }
 
 .button:hover{
      background-color: #3CA6A6;
+     color: white;
 }

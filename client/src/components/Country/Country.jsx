@@ -16,10 +16,9 @@ export default function Country(props){
                     <p><span>Codigo: </span>{code}</p>
                     <p><span>Continente: </span>{continent}</p>
                     <p><span>Población: </span>{population}</p>
-                    <button className={s.button}>
-                         <Link to={`/countries/info/${id}`}>Mas Informacion</Link>                    
+                    <Link to={`/countries/info/${id}`} className={s.button}>Mas Informacion</Link>                    
 
-                    </button>
+                    
                </div>
           </div>
      )

@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {getCountries} from '../../actions/actions'
+import {getCountries, setContinent} from '../../actions/actions'
 import axios from 'axios';
 import s from './CreateActivity.module.css'
 
 export default function CreateActivity(){
+     const [error, setError] = useState('Completa los datos');
      const [activity, setInputActivity] = useState({
           idCountries: [],
           name: '',
@@ -17,17 +18,34 @@ export default function CreateActivity(){
      const dispatch = useDispatch();
 
      useEffect(()=>{
+          console.log(activity);
           dispatch(getCountries());
+          dispatch(setContinent(''));
+          setInputActivity({
+               idCountries: [],
+               name: '',
+               difficulty: '',
+               duration: '',
+               season: '',
+          })
      },[])
+
+     useEffect(()=>{
+          if(activity.idCountries.length > 0 && activity.name !== '' && activity.difficulty !== '' && activity.duration !== '' && activity.season !== ''){
+               setError('');
+               console.log(activity);
+     }
+     },[activity, error])
 
      useEffect(()=>{}, [activity]);
 
+     
      function handlerOnChange(e){
           setInputActivity({
                ...activity,
                [e.target.name]: e.target.value,
-          })
-     }
+          })          
+     };
 
      function pushPais(e){
           let value = e.target.value;
@@ -45,35 +63,43 @@ export default function CreateActivity(){
           setInputActivity({
                ...activity,
                idCountries: aux
-          })
-          console.log(activity);
-     }
+          });
+     };
+     
 
      async function handlerSubmit(e){
           e.preventDefault();
           
           await axios.post('http://localhost:3001/activity/', activity);
+          setInputActivity({
+               idCountries: [],
+               name: '',
+               difficulty: '',
+               duration: '',
+               season: '',
+          })
      }
 
      return (
-     <div>
+     <div className={s.container}>
           <h1>
                Crear Actividad
           </h1>
 
-          <form onSubmit={handlerSubmit}>
-               <div>
+          <form onSubmit={handlerSubmit} className={s.formulario}>
+               {/* <div> */}
                     <label>Nombre</label>
                     <input 
+                         
                          type="text" 
                          placeholder="Nombre de la actividad" 
                          name="name"
                          onChange={handlerOnChange}
                          value={activity.name}
                     />
-               </div>
+               {/* </div> */}
 
-               <div>
+               {/* <div> */}
                     <label>Dificultad</label>
                     <select name="difficulty" onChange={handlerOnChange} value={activity.difficulty}>
                          <option value="">Elige una dificultad</option>
@@ -83,14 +109,14 @@ export default function CreateActivity(){
                          <option value="4">4</option>
                          <option value="5">5</option>
                     </select>
-               </div>
+               {/* </div> */}
 
-               <div>
+               {/* <div> */}
                     <label>Duracion</label>
-                    <input type="time" required step="3600" name='duration' onChange={handlerOnChange} value={activity.duration}/>    
-               </div>
+                    <input type="text" onChange={handlerOnChange} placeholder="Escribe en este formato hh:mm:ss" name="duration" value={activity.duration}/>    
+               {/* </div> */}
 
-               <div>
+               {/* <div> */}
                     <label>Temporada</label>
                     <select name="season" onChange={handlerOnChange} value={activity.season}>
                          <option value="">Elige una temporada</option>
@@ -99,38 +125,39 @@ export default function CreateActivity(){
                          <option value="summer">Verano</option>
                          <option value="autumm">Otono</option>
                     </select>
-               </div>
+               {/* </div> */}
 
-               <div>
+               {/* <div> */}
                     <label>Pais</label>
                     <select name="idCountries" onChange={pushPais} value=''>
                          <option value="">Selecciona un pais</option>
                          {countries.map(country => {
-                              return <option key={country.id} value={country.id}>{country.name}</option>
+                              return <option key={country.id} value={country.id}>{country.nameSpanish}</option>
                          })}                                               
                     </select>
-               </div>
+               {/* </div> */}
 
                <div className={s.seleccionadosDiv}>
                     <h3>Seleccionados</h3>
-                    {activity.idCountries.length>0 ? countries.map(country => {
-                         // console.log(country.id);
-                         if(activity.idCountries.includes((country.id).toString())){
-                              console.log(country.id, country.name);
-                              console.log(activity);
-                              return (        
-                                   <div key={country.id} className={s.seleccionados}>
-                                        <p>{country.name}</p>
-                                        <button value={country.id} onClick={eliminarCountry}>X</button>
-                                   </div>                           
-                              )
-                         }else{
-                              return;
-                         }
-                    }) : []}   
+                    <div className={s.seleccionados}>
+                         {activity.idCountries.length>0 ? countries.map(country => {
+                              // console.log(country.id);
+                              if(activity.idCountries.includes((country.id).toString())){
+                                   console.log(activity);
+                                   return (        
+                                        <div key={country.id} className={s.seleccionado}>
+                                             <p>{country.name}</p>
+                                             <button value={country.id} onClick={eliminarCountry}>x</button>
+                                        </div>                           
+                                   )
+                              }else{
+                                   return;
+                              }
+                         }) : []}   
+                    </div>
                </div>
-
-               <input type="submit" value="Registrar actividad"/>
+               {error ? <div className={s.divError}><p>{error}</p></div> : <input type="submit" value="Registrar actividad" className={s.submit}/>}
+               
           </form>
      </div>
      )  

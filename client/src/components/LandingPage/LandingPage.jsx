@@ -6,9 +6,9 @@ export default function LandingPage(){
      return (
           <div className={`${s.LandingPageContent} ${s.container}`}>
                <h1>Proyecto API <span>Countries</span></h1>
-               <button className={s.button}> 
-                    <Link to="/countries">Iniciar</Link>
-               </button>
+               <p>Proyecto para SoyHenry.</p>
+               <p>App realizada con React, React-Redux, Node y Sequelize</p>
+               <Link to="/countries" className={s.button}>Iniciar</Link>
           </div>
      )
 }

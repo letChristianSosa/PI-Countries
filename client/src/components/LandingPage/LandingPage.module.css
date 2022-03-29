@@ -1,28 +1,41 @@
 .container{
-     width: 1600px; 
-     margin: auto;     
+     max-width: 700px;
+     padding: 20px 40px; 
 }
 
 .LandingPageContent{
-     margin-top: 250px;
+     background-color: #6363638e;
+     border-radius: 10px;
+     margin-top: 240px;
+     margin-left: 100px;
      display: flex;
      flex-direction: column;
 }
 
 .LandingPageContent h1{
      font-weight: 400;
-     font-size: 45px
+     font-size: 50px;
+     margin-bottom: 0;
 }
 
 .LandingPageContent span{
      font-weight: 700;
 }
 
+.LandingPageContent p{
+     font-size: 18px;
+     line-height: .5;
+}
+
 .button{
-     background-color: #026773;
-     width: 180px;
-     height: 40px;
-     font-size: 16px;
+     margin-top: 20px;
+     padding: 10px 0;
+     background-color: #80deea;
+     text-align: center;
+     color: black;
+     width: 280px;
+     height: auto;
+     font-size: 20px;
      font-weight: 700;
      border-radius: 10px;
      border: none;
@@ -30,5 +43,26 @@
 }
 
 .button:hover{
-     background-color: #3CA6A6;
+     background-color: #4bacb8;
+     color: white;
+}
+
+@media(max-width: 768px){
+     .LandingPageContent{
+          margin: 50px auto 0 auto ;
+     }
+     .LandingPageContent h1{
+          font-weight: 400;
+          font-size: 30px;
+          margin-bottom: 0;
+     }
+     .LandingPageContent p{
+          font-size: 18px;
+          line-height: 2;
+          margin-bottom: 0;
+     }
+     .button{
+          width: 95%;
+          margin: 20px auto;
+     }
 }

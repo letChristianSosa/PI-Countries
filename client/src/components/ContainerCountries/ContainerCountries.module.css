@@ -5,13 +5,28 @@
      margin-bottom: 100px;
 }
 
+
+
 .containerCards{
      margin: auto;
      margin-top: 50px;
-     width: 1100px;
+     width: 1200px;
+     padding: 30px;
+     
+     background-color: #6363638e;
+     border-radius: 25px;
+
      display: grid;
      grid-template-columns: repeat(3, 1fr);
      gap: 40px;
      margin-bottom: 35px;
-     
+}
+
+.noHay{
+     background-color: rgb(223, 223, 223);
+     border-radius: 15px;
+     border: 1px solid red;
+     color: red;
+     grid-column: 2/3;
+     text-align: center;
 }

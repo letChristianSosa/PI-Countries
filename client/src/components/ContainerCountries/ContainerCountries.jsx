@@ -20,13 +20,10 @@ export default function ContainerCountries() {
   const dispatch = useDispatch();
     
   useEffect(()=>{      
+    console.log(countries);
     if(country){
       dispatch(getCountryName(country));
     }else{
-      dispatch(getCountries(order));
-    }
-
-    return () => {
       dispatch(getCountries(order));
     }
   },[country, order, continent])
@@ -51,7 +48,7 @@ export default function ContainerCountries() {
                   <button className={searchStyle.button} onClick={()=> setOrder('PHtoL')}>Poblacion Descendente</button>
                 </div>
                 <div>
-                  <select onChange={cambiarContinente} name="continent">
+                  <select onChange={cambiarContinente} name="continent" className={searchStyle.select}>
                     <option value="">Todos los Continentes</option>
                     <option value="Africa">Africa</option>
                     <option value="Antarctica">Antarctica</option>
@@ -66,7 +63,7 @@ export default function ContainerCountries() {
               </div>
       </div>
       <div className={`${s.containerCards}`}>
-        {countries.map((country, index) =>{
+        {countries.length > 0 ? countries.map((country, index) =>{
         if(actualPage === 1 & index <9){
           return (<CardCountry 
             key={country.id} 
@@ -87,7 +84,10 @@ export default function ContainerCountries() {
             name={country.nameSpanish}
             continent={country.continent}  
             population={country.population}      
-          />)}})};
+          />)}}): 
+          <div className={s.noHay}>
+            <p>No hay paises. Intenta otra busqueda.</p>
+          </div>}
       </div>
       <div>
         <Paginator countriesLength={countries.length}/>

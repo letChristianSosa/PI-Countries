@@ -1,5 +1,5 @@
 .container{
-     width: 1200px;
+     min-width: 1200px;
      margin: auto;     
 }
 
@@ -17,8 +17,12 @@ span{
      font-weight: 700;
 }
 
+.link{
+     color: white;
+}
+
 .navBarBg{
-     background-color: #026773;
+     background-color: #6363638e;
 }
 
 .navBarDiv{
@@ -35,4 +39,18 @@ span{
      display: flex;
      justify-content: space-between;
      gap: 20px;
+}
+
+@media(max-width: 768px){
+     .container{
+          width: 768px;
+     }
+     .navBarDiv{
+          display: flex;
+          flex-direction: column;
+     }
+}
+
+.link:hover{
+     color: #3CA6A6;
 }

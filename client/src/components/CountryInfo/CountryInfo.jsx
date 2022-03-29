@@ -26,10 +26,22 @@ export default function CountryInfo(){
                     <p>Continente: <span>{country.continent}</span></p>
                     <p>Subregion: <span>{country.subregion}</span></p>
                     <p>Area: <span>{country.area}</span></p>
+                         <h3>Actividades turisticas</h3>
+                    <div className={s.activities}>
+                         
+                         {country.Activities ? country.Activities.map(activity => {
+                              return (<div key={activity.id} className={s.activity}>
+                                   <p>Nombre: <span>{activity.name}</span></p>
+                                   <p>Dificultad: <span>{activity.difficulty}</span></p>
+                                   <p>Duracion: <span>{activity.duration}</span></p>
+                                   <p>Temporada: <span>{activity.season}</span></p>
+                              </div>)
+                         }) : <>
+                                   <p>No hay actividades</p>
+                              </>}
+                    </div>
                </div>
-                    <button className={s.button}>
-                         <Link to="/countries">Volver</Link>
-                    </button>
+               <Link to="/countries" className={s.button}>Volver</Link>
           </div>
      )
 }
