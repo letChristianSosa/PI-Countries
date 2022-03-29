@@ -1,7 +1,17 @@
+html{
+  box-sizing: border-box;
+}
+
+*,*:before,*:after{box-sizing: inherit;}
+
+*{
+  font-family: 'Montserrat', sans-serif;
+}
+
+
 body{
   background-image: url(./img/fondo.jpg);
   color: white;
-  font-family: 'Montserrat', sans-serif;
 }
 
 a{

@@ -32,9 +32,10 @@ const createDB = async () => {
         resultado.data.forEach( country => {
         // console.log(country);
         // Se hace Destructuring de los datos necesarios
-        const { name: { common }, flags: {svg}, cca3, continents, capital, subregion, area, population} = country;
+        const { name: { common }, translations: {spa}, flags: {svg}, cca3, continents, capital, subregion, area, population} = country;
         let countryActual = {
           name: common,
+          nameSpanish: spa.common ? spa.common : common,
           flag: svg ? svg : "No tiene bandera",
           code: cca3,
           continent: continents[0],

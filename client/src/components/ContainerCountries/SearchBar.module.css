@@ -1,0 +1,44 @@
+.container{
+     margin: 60px auto 0 auto;
+     max-width: 1200px;
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
+}
+.searchBar{
+
+     
+     /* margin-top: 60px; */
+     padding: 10px;
+
+     width: 600px;
+     height: 40px;
+     border: none;
+     border-radius: 10px;
+}
+
+.divOptions{
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+}
+
+.button{
+     margin: 10px 5px;
+     height: 30px;
+     
+     background-color: #026773;
+     color: white;
+     border-radius: 10px;
+     border: none;
+
+     font-weight: 700;
+     font-size: 14px;
+          
+     cursor: pointer;
+}
+
+.button:hover{
+     background-color: #3CA6A6;
+}

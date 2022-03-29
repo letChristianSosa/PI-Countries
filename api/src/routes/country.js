@@ -14,12 +14,20 @@ router.get('/', async (req,res) => {
           try{
                let country = await Country.findAll({
                     where: {
-                         name: {
-                              [Op.iLike]: name
+                         [Op.or]:{
+                              code: {
+                                   [Op.iLike]: name
+                              },
+                              name: {
+                                   [Op.iLike]: `%${name}%`
+                              },
+                              nameSpanish: {
+                                   [Op.iLike]: `%${name}%`
+                              }
                          }
                     }
                });
-               res.json(country.length === 1 ? country : `No existe el pais ${name}`)
+               res.json(country.length >= 1 ? country : [])
           }catch(e){
                res.send(e);
           }           
@@ -33,7 +41,7 @@ router.get('/', async (req,res) => {
                               ['name', 'ASC']
                          ]
                     })
-                    res.json(countries.length > 0 ? countries : "No hay paises");
+                    res.json(countries.length > 0 ? countries : []);
                }else{
                     switch(order){
                          case 'AZ': 
@@ -50,17 +58,17 @@ router.get('/', async (req,res) => {
                                    ]
                               })
                               break;
-                         case 'PHtoL': //(Population Higher to Lower) Poblacion Mas alta a Mas baja
-                              countries = await Country.findAll({
-                                   order: [
-                                        ['population', 'DESC']
-                                   ]
-                              })
-                              break;
                          case 'PLtoH': //(Population Higher to Lower) Poblacion Mas alta a Mas baja
                               countries = await Country.findAll({
                                    order: [
                                         ['population', 'ASC']
+                                   ]
+                              })
+                              break;
+                         case 'PHtoL': //(Population Higher to Lower) Poblacion Mas alta a Mas baja
+                              countries = await Country.findAll({
+                                   order: [
+                                        ['population', 'DESC']
                                    ]
                               })
                               break;
@@ -73,7 +81,7 @@ router.get('/', async (req,res) => {
                               break;
                     }
                     
-                    res.json(countries.length > 0 ? countries : "No hay paises");
+                    res.json(countries.length > 0 ? countries : []);
                }
           }catch(e){
                res.send(e);

@@ -14,9 +14,16 @@ export function receiveCountries(countries){
      }
 }
 
-export function receiveCountry(country){
+export function receiveCountryID(country){
      return {
-          type: 'GET_COUNTRY',
+          type: 'GET_COUNTRY_ID',
+          payload: country
+     }
+}
+
+export function receiveCountryName(country){
+     return {
+          type: 'GET_COUNTRY_NAME',
           payload: country
      }
 }
@@ -28,12 +35,28 @@ export function receiveActivities(activities){
      }
 }
 
-export function getCountries(){
-     return function(dispatch){
-          axios.get('http://localhost:3001/countries')
-          .then(r => r.data)
-          .then(r => dispatch(receiveCountries(r)))
-          .catch(e => console.log(e));
+export function setContinent(continent){
+     return {
+          type: 'SET_CONTINENT',
+          payload: continent
+     }
+}
+
+export function getCountries(order){
+     if(order){
+          return function(dispatch){
+               axios.get(`http://localhost:3001/countries/?order=${order}`)
+               .then(r => r.data)
+               .then(r => dispatch(receiveCountries(r)))
+               .catch(e => console.log(e));
+          }
+     }else{
+          return function(dispatch){
+               axios.get(`http://localhost:3001/countries/`)
+               .then(r => r.data)
+               .then(r => dispatch(receiveCountries(r)))
+               .catch(e => console.log(e));
+          }
      }
 }
 
@@ -48,9 +71,15 @@ export function getActivities(){
 
 export function getCountryName(name){
      return function(dispatch){
-          axios.get(`http://localhost:3001/countries/${name}`)
+          axios.get(`http://localhost:3001/countries/?name=${name}`)
           .then(r => r.data)
-          .then(r => dispatch(receiveCountry(r)))
+          .then(r => {
+               if(r === null || r.length > 1){
+                    dispatch(receiveCountries(r))
+               }else{
+                    dispatch(receiveCountryName(r))
+               }
+          })
           .catch(e => console.log(e));
      }
 }
@@ -59,7 +88,7 @@ export function getCountryId(id){
      return function(dispatch){
           axios.get(`http://localhost:3001/countries/${id}`)
           .then(r => r.data)
-          .then(r => dispatch(receiveCountry(r)))
+          .then(r => dispatch(receiveCountryID(r)))
           .catch(e => console.log(e));
      }
 }

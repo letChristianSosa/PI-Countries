@@ -3,14 +3,20 @@ import {cambiarPagina} from '../../actions/actions';
 import {useDispatch} from 'react-redux'
 import s from './Paginator.module.css'
 
-export default function Paginator({countriesLength, onClick}){
+export default function Paginator({countriesLength}){
 
      const dispatch = useDispatch();
 
      const paginas = [];
-     for(let i = 1; i<=Math.ceil(countriesLength/10)+1;i++){
-          paginas.push(i);
-     }   
+     if(countriesLength === 250){
+          for(let i = 1; i<=Math.ceil(countriesLength/10)+1;i++){
+               paginas.push(i);
+          }   
+     }else{
+          for(let i = 1; i<=Math.ceil(countriesLength/10);i++){
+               paginas.push(i);
+          }   
+     }
 
      return(
           <div >

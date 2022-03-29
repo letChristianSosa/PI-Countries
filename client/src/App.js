@@ -2,7 +2,7 @@ import './App.css';
 import {Routes, Route} from 'react-router-dom';
 import Footer from './components/Footer/Footer'
 import LandingPage from './components/LandingPage/LandingPage'
-import NavBar from './components/NavBar/NavBar'
+import NavBar from './components/NavBar/NavBar';
 import CountryInfo from './components/CountryInfo/CountryInfo';
 import ContainerCountries from './components/ContainerCountries/ContainerCountries';
 
