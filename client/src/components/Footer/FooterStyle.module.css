@@ -1,0 +1,29 @@
+.container{
+     width: 1200px;
+     margin: auto;     
+}
+
+.footer{
+     position: fixed;
+     bottom: 0;
+     width: 100%;
+     font-size: 15px;
+}
+
+.footer span{
+     font-weight: 700;
+}
+
+.footerBg{
+     background-color: #026773;
+}
+
+.footerDiv{
+     display: flex;
+     justify-content: space-between; 
+     align-items: center;
+}
+
+.footerInfo{
+     line-height: .5;
+}

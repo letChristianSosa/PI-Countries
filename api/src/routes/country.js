@@ -19,7 +19,7 @@ router.get('/', async (req,res) => {
                          }
                     }
                });
-               res.json(country.length === 1 ? country : `No existe el pais ${name}` )
+               res.json(country.length === 1 ? country : `No existe el pais ${name}`)
           }catch(e){
                res.send(e);
           }           
@@ -72,6 +72,7 @@ router.get('/', async (req,res) => {
                               })
                               break;
                     }
+                    
                     res.json(countries.length > 0 ? countries : "No hay paises");
                }
           }catch(e){

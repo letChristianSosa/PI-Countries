@@ -1,0 +1,38 @@
+.container{
+     width: 1200px;
+     margin: auto;     
+}
+
+.navBar{
+     display: flex;
+     position: fixed;
+     top: 0;
+     width: 100%;
+     height: 40px;
+     font-size: 20px;
+     font-weight: 400;
+}
+
+span{
+     font-weight: 700;
+}
+
+.navBarBg{
+     background-color: #026773;
+}
+
+.navBarDiv{
+     display: flex;
+     justify-content: space-between; 
+     align-items: center;
+}
+
+.footerInfo{
+     line-height: .5;
+}
+
+.links{
+     display: flex;
+     justify-content: space-between;
+     gap: 20px;
+}

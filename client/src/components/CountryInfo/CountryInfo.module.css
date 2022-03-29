@@ -1,0 +1,38 @@
+.cardInfo{
+     margin: 80px auto;
+     padding: 20px;
+     background-color: white;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+
+     color: black;
+     border-radius: 10px;
+
+     width: 400px;
+     height: 500px;
+}
+
+.img{
+     width: 300px;
+     height: 180px;
+}
+
+.info{
+     text-align: center;
+}
+
+.button{
+     background-color: #026773;
+     width: 180px;
+     height: 40px;
+     font-size: 16px;
+     font-weight: 700;
+     border-radius: 10px;
+     border: none;
+     
+}
+
+.button:hover{
+     background-color: #3CA6A6;
+}
