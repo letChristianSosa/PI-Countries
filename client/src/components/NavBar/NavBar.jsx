@@ -11,7 +11,7 @@ export default function Nav(){
                     </div>
                     <div className={`${s.links}`}>
                          <Link to="/countries"><span>Paises</span></Link>
-                         <Link to="/activities">Actividades</Link>
+                         <Link to="/addActivity">Agregar Actividad</Link>
                     </div>
                </div>
           </div>

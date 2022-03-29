@@ -13,7 +13,9 @@ router.post('/', async (req,res) => {
           const newActivity = await Activity.create({
                name, difficulty, duration, season
           });
-          newActivity.addCountries(idCountries);
+          idCountries.forEach(id => {
+               newActivity.addCountries(id);
+          });          
           res.json(newActivity);
      }catch(e){
           res.send(e);
@@ -21,14 +23,16 @@ router.post('/', async (req,res) => {
 });
 
 router.get('/:idActivity', async (req,res) => {
-     const {idActivity} = req.params;
-     if(idActivity){
-          try{
-               const activity = await Activity.findByPk(id);
-               res.json(activity.length !== 0 ? activity : "No existe actividad con ese id");
-          }catch(e){
-               res.send(e);
-          }
+     try{
+          const {idActivity} = req.params;
+          const activity = await Activity.findByPk(idActivity, {
+               include: {
+                    model: Country
+               }
+          });
+          res.json(activity ? activity : []);
+     }catch(e){
+          res.send(e);
      }
 });
 

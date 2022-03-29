@@ -19,12 +19,15 @@ export default function ContainerCountries() {
   const continent = useSelector(state => state.continent);
   const dispatch = useDispatch();
     
-  useEffect(()=>{    
-    
+  useEffect(()=>{      
     if(country){
       dispatch(getCountryName(country));
     }else{
-      dispatch(getCountries(order, continent));
+      dispatch(getCountries(order));
+    }
+
+    return () => {
+      dispatch(getCountries(order));
     }
   },[country, order, continent])
   

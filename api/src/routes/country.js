@@ -1,6 +1,6 @@
 const {Router} = require('express');
-const {Country} = require('../db.js');
-const { Op } = require('sequelize')
+const {Country, Activity} = require('../db.js');
+const { Op } = require('sequelize');
 
 const router = Router();
 
@@ -12,7 +12,10 @@ router.get('/', async (req,res) => {
      if(name){
           // select * from "Countries" where name = $name;
           try{
-               let country = await Country.findAll({
+               const country = await Country.findAll({
+                    include: {
+                         model: Activity
+                    },
                     where: {
                          [Op.or]:{
                               code: {
@@ -34,9 +37,12 @@ router.get('/', async (req,res) => {
      }else{
           try{
                // select * from "Countries";
-               let countries;
+               
                if(!order){
-                    countries = await Country.findAll({
+                    const countries = await Country.findAll({
+                         include: {
+                              model: Activity
+                         },
                          order: [
                               ['name', 'ASC']
                          ]
@@ -46,34 +52,45 @@ router.get('/', async (req,res) => {
                     switch(order){
                          case 'AZ': 
                               countries = await Country.findAll({
-                                   order: [
+                                   include: {
+                                        model: Activity
+                                   },order: [
                                         ['name', 'ASC']
                                    ]
                               })                              
                               break;
                          case 'ZA':
                               countries = await Country.findAll({
-                                   order: [
+                                   include: {
+                                        model: Activity
+                                   },order: [
                                         ['name', 'DESC']
                                    ]
                               })
                               break;
                          case 'PLtoH': //(Population Higher to Lower) Poblacion Mas alta a Mas baja
                               countries = await Country.findAll({
-                                   order: [
+                                   include: {
+                                        model: Activity
+                                   },order: [
                                         ['population', 'ASC']
                                    ]
                               })
                               break;
                          case 'PHtoL': //(Population Higher to Lower) Poblacion Mas alta a Mas baja
                               countries = await Country.findAll({
-                                   order: [
+                                   include: {
+                                        model: Activity
+                                   },order: [
                                         ['population', 'DESC']
                                    ]
                               })
                               break;
                          default:
                               countries = await Country.findAll({
+                                   include: {
+                                        model: Activity
+                                   },
                                    order: [
                                         ['name', 'ASC']
                                    ]
@@ -93,9 +110,13 @@ router.get('/', async (req,res) => {
 
 router.get('/:id', async (req,res) => {
      try{
-          let {id} = req.params;
-          let country = await Country.findByPk(id);
-          res.json(country ? country : "No existe pais con ese id");
+          const {id} = req.params;
+          const country = await Country.findByPk(id, {
+               include: {
+                    model: Activity
+               }
+          });
+          res.json(country ? country : []);
      }catch(e){
           res.send(e);
      }
