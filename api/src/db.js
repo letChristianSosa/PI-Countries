@@ -2,8 +2,6 @@ require('dotenv').config();
 const { Sequelize } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
-// const Country = require('./models/Country');
-// const Activity = require('./models/Activity');
 const {
   DB_USER, DB_PASSWORD, DB_HOST,
 } = process.env;
@@ -38,9 +36,9 @@ const { Country, Activity } = sequelize.models;
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
 
+// Se asignan las relaciones M:N
 Country.belongsToMany(Activity, {through: 'Country_activity', timestamps: false});
 Activity.belongsToMany(Country, {through: 'Country_activity', timestamps: false});
-// Activity.belongsToMany(Country)
 
 
 module.exports = {

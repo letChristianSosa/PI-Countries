@@ -5,10 +5,12 @@ import {getCountryId} from '../../actions/actions'
 import s from './CountryInfo.module.css';
 
 export default function CountryInfo(){
+     // Hook de react-router-dom que lee los params. match.params.id
      const {id} = useParams();
      const country = useSelector(state => state.country);
      const dispatch = useDispatch();
 
+     // Al construirse, se despacha el getCountryId( id pasado por Params)
      useEffect(()=>{    
           dispatch(getCountryId(id));
      },[])

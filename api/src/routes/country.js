@@ -5,6 +5,7 @@ const { Op } = require('sequelize');
 const router = Router();
 
 //Retorna el pais con el nombre coincidente pasado por query o retorna todos los paises. GET http://localhost:3001/countries/    O    // http://localhost:3001/countries/?name=mexico
+// Todos los get retornan sus respectivos activities 
 
 router.get('/', async (req,res) => {
      const {name, order} = req.query;     
@@ -16,6 +17,7 @@ router.get('/', async (req,res) => {
                     include: {
                          model: Activity
                     },
+                    // Retorna los countries coincidentes por el name, el name en spanish o el code de 3 letras
                     where: {
                          [Op.or]:{
                               code: {
@@ -30,6 +32,7 @@ router.get('/', async (req,res) => {
                          }
                     }
                });
+               // Da como respuesta todos los countries coincidentes
                res.json(country.length >= 1 ? country : [])
           }catch(e){
                res.send(e);
@@ -38,13 +41,14 @@ router.get('/', async (req,res) => {
           try{
                // select * from "Countries";
                
+               // Si se manda por query el order, se retornan los countries ordenados por nombre o por poblacion
                if(!order){
                     const countries = await Country.findAll({
                          include: {
                               model: Activity
                          },
                          order: [
-                              ['name', 'ASC']
+                              ['nameSpanish', 'ASC']
                          ]
                     })
                     res.json(countries.length > 0 ? countries : []);
@@ -55,7 +59,7 @@ router.get('/', async (req,res) => {
                                    include: {
                                         model: Activity
                                    },order: [
-                                        ['name', 'ASC']
+                                        ['nameSpanish', 'ASC']
                                    ]
                               })                              
                               break;
@@ -64,7 +68,7 @@ router.get('/', async (req,res) => {
                                    include: {
                                         model: Activity
                                    },order: [
-                                        ['name', 'DESC']
+                                        ['nameSpanish', 'DESC']
                                    ]
                               })
                               break;

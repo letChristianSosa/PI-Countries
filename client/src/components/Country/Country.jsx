@@ -6,6 +6,7 @@ export default function Country(props){
      const {id ,flag, name, code, continent, population} = props;
 
 
+     // Componente Card que muestra los datos de su respectivo pais
      return(
           <div className={`${s.countryCard}`}>
                <div className={`${s.countryImg}`}>

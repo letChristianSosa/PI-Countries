@@ -28,13 +28,6 @@ export function receiveCountryName(country){
      }
 }
 
-export function receiveActivities(activities){
-     return {
-          type: 'GET_ALL_ACTIVITIES',
-          payload: activities
-     }
-}
-
 export function setContinent(continent){
      return {
           type: 'SET_CONTINENT',
@@ -44,11 +37,15 @@ export function setContinent(continent){
 
 export function getCountries(order){
      if(order){
-          return function(dispatch){
-               axios.get(`http://localhost:3001/countries/?order=${order}`)
-               .then(r => r.data)
-               .then(r => dispatch(receiveCountries(r)))
-               .catch(e => console.log(e));
+          return async function(dispatch){
+               try {
+                    const resultado = await axios.get(`http://localhost:3001/countries/?order=${order}`);
+                    const respuesta = resultado.data;
+                    dispatch(receiveCountries(respuesta));    
+               } catch (error) {
+                    console.log(error);
+               }
+                          
           }
      }else{
           return function(dispatch){
@@ -57,15 +54,6 @@ export function getCountries(order){
                .then(r => dispatch(receiveCountries(r)))
                .catch(e => console.log(e));
           }
-     }
-}
-
-export function getActivities(){
-     return function(dispatch){
-          axios.get('http://localhost:3001/activities')
-          .then(r => r.data)
-          .then(r => dispatch(receiveActivities(r)))
-          .catch(e => console.log(e));
      }
 }
 
