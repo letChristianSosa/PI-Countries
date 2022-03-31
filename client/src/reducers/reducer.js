@@ -27,12 +27,6 @@ export default function reducer(state = initialState, action){
                     actualPage: 1,
                     countries: action.payload
                }
-          // case "GET_ALL_ACTIVITIES":
-          //      return {
-          //           ...state,
-          //           activities: action.payload
-          // }
-
                // Retorna el country que coincida con el id
           case "GET_COUNTRY_ID":
                return {

@@ -12,3 +12,7 @@
 .button:hover{
      background-color: #3CA6A6;
 }
+
+.selected{
+     background-color: red;
+}

@@ -27,3 +27,7 @@
 .footerInfo{
      line-height: .5;
 }
+
+.footerLink a{
+     color: white;
+}

@@ -39,44 +39,52 @@ export function getCountries(order){
      if(order){
           return async function(dispatch){
                try {
-                    const resultado = await axios.get(`http://localhost:3001/countries/?order=${order}`);
-                    const respuesta = resultado.data;
-                    dispatch(receiveCountries(respuesta));    
+                    const respuesta = await axios.get(`http://localhost:3001/countries/?order=${order}`);
+                    const resultado = respuesta.data;
+                    dispatch(receiveCountries(resultado));    
                } catch (error) {
                     console.log(error);
                }
                           
           }
      }else{
-          return function(dispatch){
-               axios.get(`http://localhost:3001/countries/`)
-               .then(r => r.data)
-               .then(r => dispatch(receiveCountries(r)))
-               .catch(e => console.log(e));
+          return async function(dispatch){
+               try {
+                    const respuesta = await axios.get(`http://localhost:3001/countries/`)
+                    const resultado = respuesta.data;
+                    dispatch(receiveCountries(resultado));
+               } catch (error) {
+                    console.log(error);
+               }
           }
      }
 }
 
 export function getCountryName(name){
-     return function(dispatch){
-          axios.get(`http://localhost:3001/countries/?name=${name}`)
-          .then(r => r.data)
-          .then(r => {
-               if(r === null || r.length > 1){
-                    dispatch(receiveCountries(r))
+     return async function(dispatch){
+          try {
+               const respuesta = await axios.get(`http://localhost:3001/countries/?name=${name}`)
+               const resultado = respuesta.data;
+               if(resultado === null || resultado.length > 1){
+                    dispatch(receiveCountries(resultado))
                }else{
-                    dispatch(receiveCountryName(r))
-               }
-          })
-          .catch(e => console.log(e));
+                    dispatch(receiveCountryName(resultado))
+               }               
+          } catch (error) {
+               console.log(error);
+          }
+          
      }
 }
 
 export function getCountryId(id){
-     return function(dispatch){
-          axios.get(`http://localhost:3001/countries/${id}`)
-          .then(r => r.data)
-          .then(r => dispatch(receiveCountryID(r)))
-          .catch(e => console.log(e));
+     return async function(dispatch){
+          try {
+               const respuesta = await axios.get(`http://localhost:3001/countries/${id}`)
+               const resultado = respuesta.data;
+               dispatch(receiveCountryID(resultado))
+          } catch (error) {
+               console.log(error);
+          }
      }
 }

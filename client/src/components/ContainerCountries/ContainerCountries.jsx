@@ -29,7 +29,6 @@ export default function ContainerCountries() {
   // Si el state country tiene algo, se despacha la busqueda por el country escrito.
   // O busca todos los countries
   useEffect(()=>{      
-    console.log(countries);
     if(country){
       dispatch(getCountryName(country));
     }else{
